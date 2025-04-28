@@ -1,2 +1,3 @@
 # websocket-practice
 websocket練習帳
+textにinputしたら入力した内容が帰ってきます
