@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Websocket practice</title>
+    </head>
+
+    <body>
+        <p id="output">Websocket is not available now.</p>
+        <input id="text-field"><button id="submit">submit</button>
+        <script>
+            var loc = window.location
+            var uri = "ws:"
+            if (loc.protocol == "https:") {
+                uri = "wss:"
+            }
+            uri += "//" + loc.host + loc.pathname + "ws"
+            ws = new WebSocket(uri)
+
+            ws.onopen = () => {console.log("Connected")}
+            ws.onmessage = (evt) => {
+                var out = document.getElementById("output")
+                if (out.innerText == "Websocket is not available now.") {
+                    out.innerText = ""
+                }
+                out.innerHTML += evt.data + "<br>"
+            }
+            var button = document.getElementById("submit")
+            button.addEventListener("click", () => {
+                var input = document.getElementById("text-field")
+                text = input.value
+                ws.send(text)
+            })
+        </script>
+    </body>
+</html>
